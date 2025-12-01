@@ -4,9 +4,10 @@ function App() {
 
     return (
         <>
-            <h1>Hi! My name is ...</h1>
-            <p>I want you to learn programming and get a job. Let me help you.</p>
-            <p>Help me help you!</p>
+            <h1>Hi! This is my showcase for react + redux + router + tailwind.</h1>
+            <div style={{ height: "100px", width: "100px" }}>
+                <a href="https://github.com/wtasg/meetonline">MeetOnline App Repo</a>
+            </div>
         </>
     )
 }
