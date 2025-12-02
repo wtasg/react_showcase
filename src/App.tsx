@@ -1,13 +1,15 @@
 import './App.css'
+import { TicTacToe } from './showcase/tic-tac-toe/TicTacToe'
 
 function App() {
-
     return (
         <>
-            <h1>Hi! This is my showcase for react + redux + router + tailwind.</h1>
-            <div style={{ height: "100px", width: "100px" }}>
+            <h1>Hi!</h1>
+            <p>This is my showcase for react apps.</p>
+            <div style={{ height: "100px", width: "content", margin: "auto" }}>
                 <a href="https://github.com/wtasg/meetonline">MeetOnline App Repo</a>
             </div>
+            <TicTacToe />
         </>
     )
 }
