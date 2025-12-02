@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type Cell = {
     value: string;
 }
@@ -10,15 +12,16 @@ type State = {
 };
 
 function TicTacToe() {
-
-    const state: State = {
+    const initialState: State = {
         turn: "X",
         board: [
             [{ value: "X" }, { value: "O" }, { value: " " },],
             [{ value: " " }, { value: " " }, { value: " " },],
             [{ value: " " }, { value: " " }, { value: " " },],
         ]
-    }
+    };
+
+    const [state, setState] = useState(initialState);
 
     return <DrawBoard state={state} />;
 }
