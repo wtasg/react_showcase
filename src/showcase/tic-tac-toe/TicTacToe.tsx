@@ -4,28 +4,32 @@ import "./TicTacToe.css"
 const initialSquares = (): ("X" | "O" | "")[] => Array(9).fill(0).map(() => "");
 
 function TicTacToe() {
-    const [squares, setSquares] = useState<("X" | "O" | "")[]>(initialSquares());
-    const [turn, setTurn] = useState<"X" | "O">("X");
+    const [squares, setSquares] = useState<("X" | "O" | "")[]>(initialSquares);
     const [gameState, setGameState] = useState<"over" | "playing" | "tied">("playing");
     const [playerWon, setPlayerWon] = useState<"X" | "O" | "">("");
     const [wincom, setWincom] = useState<number[]>([]);
     const [moves, setMoves] = useState(9);
 
     function onSquareClick(index: number) {
+        // code-khichdi: opposite of separation of concerns
+        // jiska kaam ussi ko saje...
         if (squares[index] !== "" || gameState === "over" || playerWon !== "" || gameState === "tied") {
             return;
         }
         const newMoves = moves - 1;
         setMoves(newMoves);
-        const newSquares = [...squares.slice(0, index), turn, ...squares.slice(index + 1)];
+        const nextTurn = turn(squares);
+        console.log({ newMoves, squares, nextTurn });
+        const newSquares = [...squares];
+        newSquares[index] = nextTurn;
         setSquares(newSquares);
-        setTurn(turn === "X" ? "O" : "X");
+
         const { won, combination } = winner(newSquares);
         if (won === "X" || won === "O") {
             setWincom(combination);
             setGameState("over");
             setPlayerWon(won);
-            setTurn("X");
+
             return;
         }
         if (newMoves === 0) {
@@ -35,11 +39,11 @@ function TicTacToe() {
     }
 
     function reset() {
-        setTurn("X");
         setSquares(initialSquares());
         setPlayerWon("");
         setGameState("playing");
         setWincom([]);
+        setMoves(9);
     }
 
     return <div className="game">
@@ -50,17 +54,18 @@ function TicTacToe() {
                     .map(
                         (val: string, index: number) =>
                             <Square
+                                key={`square-${index}`}
                                 index={index}
                                 val={val}
                                 onSquareClick={onSquareClick}
-                                klass={playerWon && wincom.includes(index) ? "wincom" : ""}
+                                klass={(playerWon !== "" && wincom.includes(index)) ? "wincom" : ""}
                             />
                     )
             }
         </div>
         <div className="state">
             <button className="reset" onClick={reset}>reset</button>
-            {playerWon && <div className="won">{playerWon}</div>}
+            {playerWon !== "" && <div className="won">{playerWon}</div>}
             {gameState === "over" && <div className="over">
                 Game Over!
             </div>
@@ -73,7 +78,6 @@ function TicTacToe() {
 function Square({ index, val, onSquareClick, klass }: { index: number, val: string, onSquareClick: (index: number) => void, klass: string }) {
     return <div
         className={`square ${val === "" ? "empty" : "filled"} ${klass}`}
-        key={`square_${index}`}
         onClick={() => onSquareClick(index)}
     >
         {val}
@@ -97,6 +101,23 @@ function winner(squares: ("X" | "O" | "")[]): { won: "X" | "O" | "", combination
         }
     }
     return { won: "", combination: [] };
+}
+
+function turn(squares: ("X" | "O" | "")[]): ("X" | "O" | "") {
+    if (squares.every(val => val === "")) {
+        return "X";
+    }
+    if (squares.every(val => val === "X" || val === "O")) {
+        return "";
+    }
+    const val = squares.reduce((a, c) => a += c === "X" ? +1 : c === "O" ? -1 : 0, 0)
+    console.log({ val });
+    if (val === 0) {
+        return "X";
+    } else if (val === 1) {
+        return "O";
+    }
+    return "";
 }
 
 export {
