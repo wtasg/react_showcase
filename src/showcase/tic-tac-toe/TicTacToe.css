@@ -5,15 +5,16 @@ div.game {
     gap: 20px;
 
     & h1 {
-        color: red;
-        text-shadow: 1px 5px 5px black;
+        color: var(--red);
+        font-size: 32px;
+        text-shadow: 1px 5px 5px var(--black);
     }
 
     & .board {
         width: fit-content;
         max-width: 500px;
         max-height: 500px;
-        border: thin solid rebeccapurple;
+        border: thin solid var(--purple);
 
         display: grid;
         grid-template-columns: repeat(3, minmax(120px, 1fr));
@@ -21,7 +22,7 @@ div.game {
         padding: 20px;
 
         & .square {
-            border: thin solid yellow;
+            border: thin solid var(--yellow);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -40,7 +41,7 @@ div.game {
             }
 
             &.wincom {
-                border: thick solid green;
+                border: thick solid var(--green);
             }
         }
     }
@@ -48,7 +49,7 @@ div.game {
     & .state {
         .won {
             font-size: 72px;
-            color: red;
+            color: var(--red);
 
             &::after {
                 display: inline-block;

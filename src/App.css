@@ -4,9 +4,6 @@
     grid-gap: 20px;
 
     & nav {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
         padding: 20px;
 
         & button {
