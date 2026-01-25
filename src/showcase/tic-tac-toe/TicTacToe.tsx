@@ -1,10 +1,22 @@
 import { useState } from "react";
 import "./TicTacToe.css"
 
-const initialSquares = (): ("X" | "O" | "")[] => Array(9).fill(0).map(() => "");
+type PlayerValue = "X" | "O";
+type SquareValue = PlayerValue | "";
+
+const initialSquares = (): SquareValue[] => Array(9).fill(0).map(() => "");
+
+type GameResult =
+    | { state: PlayerValue; combination: [number, number, number]; }
+    | { state: "TIED"; };
+
+type Game =
+    | { state: "ready"; }
+    | { state: "playing", nextTurn: PlayerValue, board: SquareValue[] }
+    | { state: "over", board: SquareValue[]; result: GameResult; }
 
 function TicTacToe() {
-    const [squares, setSquares] = useState<("X" | "O" | "")[]>(initialSquares);
+    const [squares, setSquares] = useState<SquareValue[]>(initialSquares);
     const [gameState, setGameState] = useState<"over" | "playing" | "tied">("playing");
     const [playerWon, setPlayerWon] = useState<"X" | "O" | "">("");
     const [wincom, setWincom] = useState<number[]>([]);

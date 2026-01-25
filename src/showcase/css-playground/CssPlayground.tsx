@@ -2,16 +2,16 @@ import { useState } from 'react';
 import "./CssPlayground.css";
 
 export default function CssPlayground() {
-    const [fontWeight, setFontWeight] = useState(900);
+    const [fontWeight, setFontWeight] = useState(500);
     const [fontStretch, setFontStretch] = useState('normal');
     const [fontStyle, setFontStyle] = useState('normal');
     const [color, setColor] = useState('#ffffff');
     const [backgroundColor, setBackgroundColor] = useState('#f40000');
     const [border, setBorder] = useState('thin solid red');
     const [borderRadius, setBorderRadius] = useState(29);
-    const [height, setHeight] = useState(152);
-    const [width, setWidth] = useState(28);
-    const [padding, setPadding] = useState(1.4);
+    const [height, setHeight] = useState(256);
+    const [width, setWidth] = useState(48);
+    const [padding, setPadding] = useState(1.2);
     const [margin, setMargin] = useState(0);
     const [fontSize, setFontSize] = useState(32);
 
@@ -21,7 +21,7 @@ export default function CssPlayground() {
     const [paddingUnit, setPaddingUnit] = useState('em');
     const [marginUnit, setMarginUnit] = useState('px');
 
-    const previewStyle = {
+    const previewStyle: React.CSSProperties = {
         fontSize: `${fontSize}px`,
         fontWeight: fontWeight,
         fontStretch: fontStretch,
@@ -46,20 +46,57 @@ export default function CssPlayground() {
             <div className="w-80 p-6 overflow-y-auto border-r-4 border-cyan-400">
                 <h2 className="text-2xl font-bold mb-6">Controls</h2>
 
+                <div className="mb-6">
+                    <label className="block text-sm font-semibold mb-2">
+                        font-size: ({fontSize})
+                    </label>
+                    <div>
+                        <input
+                            type="range"
+                            min="0"
+                            max="256"
+                            step="1"
+                            value={fontSize}
+                            onChange={(e) => setFontSize(Number(e.target.value))}
+                            className="w-2/3 mr-4"
+                        />
+                        <input
+                            type="number"
+                            min="0"
+                            max="256"
+                            step="1"
+                            value={fontSize}
+                            onChange={(e) => setFontSize(Number(e.target.value))}
+                            className="w-1/4"
+                        />
+                    </div>
+                </div>
+
                 {/* Font Weight */}
                 <div className="mb-6">
                     <label className="block text-sm font-semibold mb-2">
                         font-weight: ({fontWeight})
                     </label>
-                    <input
-                        type="range"
-                        min="100"
-                        max="900"
-                        step="100"
-                        value={fontWeight}
-                        onChange={(e) => setFontWeight(Number(e.target.value))}
-                        className="w-full"
-                    />
+                    <div>
+                        <input
+                            type="range"
+                            min="100"
+                            max="900"
+                            step="100"
+                            value={fontWeight}
+                            onChange={(e) => setFontWeight(Number(e.target.value))}
+                            className="w-2/3 mr-4"
+                        />
+                        <input
+                            type="number"
+                            min="100"
+                            max="900"
+                            step="100"
+                            value={fontWeight}
+                            onChange={(e) => setFontWeight(Number(e.target.value))}
+                            className="w-1/4"
+                        />
+                    </div>
                 </div>
 
                 {/* Font Stretch */}
@@ -307,7 +344,7 @@ export default function CssPlayground() {
 
             </div>
             {/* Preview Element */}
-            <div className="flex justify-center items-start">
+            <div className="w-max flex justify-center items-center">
                 <div style={previewStyle}>
                     <span>P</span>
                     <span>L</span>
@@ -315,6 +352,6 @@ export default function CssPlayground() {
                     <span>Y</span>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

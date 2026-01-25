@@ -47,15 +47,18 @@ div.game {
     }
 
     & .state {
-        .won {
-            font-size: 72px;
-            color: var(--red);
 
-            &::after {
-                display: inline-block;
-                content: "won!";
-                margin: 10px;
-            }
+        .won,
+        .tied {
+            font-size: 72px;
+        }
+
+        .won {
+            color: var(--red);
+        }
+
+        .tied {
+            color: var(--color-orange-300);
         }
 
         button.reset {
