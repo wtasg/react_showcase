@@ -209,7 +209,7 @@ bb0 (block):
 
 export function Collapsible() {
     return (
-        <div className="flex flex-row h-full overflow-hidden border border-gray-300 font-mono">
+        <div className="flex flex-row min-h-screen overflow-hidden border border-gray-300 font-mono">
             {PANELS.map(({ title, content }) => (
                 <CollapsiblePanel key={title} title={title}>
                     {content}
