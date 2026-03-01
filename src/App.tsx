@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { TicTacToe } from './showcase/tic-tac-toe/TicTacToe'
 import CssPlayground from './showcase/css-playground/CssPlayground';
+import { Collapsible } from './showcase/collapsible/Collapsible';
 
 function App() {
     const [path, setPath] = useState(localStorage.getItem("route") || "/");
@@ -17,6 +18,7 @@ function App() {
                 <button onClick={() => changeRoute("/")}>Home</button>
                 <button onClick={() => changeRoute("/tic-tac-toe")}>Tic Tac Toe</button>
                 <button onClick={() => changeRoute("/css-playground")}>CSS Playground</button>
+                <button onClick={() => changeRoute("/collapsible")}>Collapsible</button>
             </nav>
             <main role="main">
                 {
@@ -41,6 +43,13 @@ function App() {
 
                     <section>
                         <CssPlayground />
+                    </section>
+                }
+                {
+                    path === "/collapsible" &&
+
+                    <section>
+                        <Collapsible />
                     </section>
                 }
             </main>
