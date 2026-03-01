@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 interface CollapsiblePanelProps {
     title: string;
@@ -7,12 +7,16 @@ interface CollapsiblePanelProps {
 
 function CollapsiblePanel({ title, children }: CollapsiblePanelProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const contentId = useId();
 
     return (
         <div
             className={`border-r border-gray-300 flex flex-col overflow-hidden ${isOpen ? 'flex-1 min-w-48' : 'w-8'}`}
         >
             <button
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={contentId}
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-left font-mono text-sm font-bold p-1 hover:bg-gray-100 cursor-pointer flex-shrink-0"
                 style={isOpen ? undefined : { writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
@@ -20,7 +24,7 @@ function CollapsiblePanel({ title, children }: CollapsiblePanelProps) {
                 {isOpen ? `- ${title}` : title}
             </button>
             {isOpen && (
-                <div className="p-2 overflow-auto flex-1 font-mono text-sm whitespace-pre">
+                <div id={contentId} className="p-2 overflow-auto flex-1 font-mono text-sm whitespace-pre">
                     {children}
                 </div>
             )}
@@ -209,7 +213,7 @@ bb0 (block):
 
 export function Collapsible() {
     return (
-        <div className="flex flex-row min-h-screen overflow-hidden border border-gray-300 font-mono">
+        <div className="flex flex-row min-h-screen overflow-x-auto border border-gray-300 font-mono">
             {PANELS.map(({ title, content }) => (
                 <CollapsiblePanel key={title} title={title}>
                     {content}
